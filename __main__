@@ -1,0 +1,279 @@
+import discord
+import asyncio
+from arrr import _VERSION
+import argparse as arrrgparse  # Geddit..? ;-)
+import random
+import sys
+
+TOKEN = 'NzMyNTAxMTUwMzM0NDUxNzQz.Xw1hNA.zndN_rO8n2n39FCZng60FEjENMs'
+client = discord.Client()
+
+_PIRATE_WORDS = {
+    "hello": "ahoy",
+    "hello.": "ahoy.",
+    "hello,": "ahoy,",
+    "hello!": "ahoy!",
+    "hello?": "ahoy?",
+    "heya": "ahoy",
+    "heya.": "ahoy.",
+    "heya,": "ahoy,",
+    "heya!": "ahoy!",
+    "heya?": "ahoy?",
+    "hey": "ahoy",
+    "hey.": "ahoy.",
+    "hey,": "ahoy,",
+    "hey!": "ahoy!",
+    "hey?": "ahoy?",
+    "hi": "arrr",
+    "hi!": "arrr!",
+    "hi,": "arrr,",
+    "hi.": "arrr.",
+    "hi?": "arrr?",
+    "my": "me",
+    "friend": "m'hearty",
+    "friend!": "m'hearty!",
+    "friend,": "m'hearty,",
+    "friend.": "m'hearty.",
+    "friend?": "m'hearty?",
+    "boy": "laddy",
+    "boy.": "laddy.",
+    "boy!": "laddy!",
+    "boy,": "laddy,",
+    "boy?": "laddy?",
+    "girl": "lassie",
+    "girl,": "lassie,",
+    "girl!": "lassie!",
+    "girl.": "lassie.",
+    "girl?": "lassie?",
+    "sir": "matey",
+    "sir.": "matey.",
+    "sir!": "matey!",
+    "sir,": "matey,",
+    "sir?": "matey?",
+    "guys": "matey",
+    "guys.": "matey.",
+    "guys!": "matey!",
+    "guys,": "matey,",
+    "guy?": "matey?",
+    "miss": "proud beauty",
+    "miss.": "proud beauty.",
+    "miss!": "proud beauty!",
+    "miss,": "proud beauty,",
+    "miss?": "proud beauty?",
+    "stranger": "scurvy dog",
+    "stranger.": "scurvy dog.",
+    "stranger!": "scurvy dog!",
+    "stranger,": "scurvy dog,",
+    "stranger?": "scurvy dog?",
+    "boss": "foul blaggart",
+    "boss!": "foul blaggart!",
+    "boss.": "foul blaggart.",
+    "boss,": "foul blaggart,",
+    "boss?": "foul blaggart?",
+    "where": "whar",
+    "where?": "whar?",
+    "is": "be",
+    "is?": "be?",
+    "the": "th'",
+    "you": "ye",
+    "you?": "ye?",
+    "you.": "ye.",
+    "you!": "ye!",
+    "you,": "ye,",
+    "old": "barnacle covered",
+    "old!": "barnacle covered!",
+    "old,": "barnacle covered,",
+    "old?": "barnacle covered?",
+    "old.": "barnacle covered.",
+    "happy": "grog-filled",
+    "happy.": "grog-filled.",
+    "happy!": "grog-filled!",
+    "happy,": "grog-filled,",
+    "happy?": "grog-filled?",
+    "nearby": "broadside",
+    "nearby!": "broadside!",
+    "nearby?": "broadside?",
+    "nearby.": "broadside.",
+    "nearby,": "broadside,",
+    "bathroom": "head",
+    "bathroom!": "head!",
+    "bathroom.": "head.",
+    "bathroom,": "head,",
+    "bathroom?": "head?",
+    "kitchen": "galley",
+    "kitchen!": "galley!",
+    "kitchen.": "galley.",
+    "kitchen,": "galley,",
+    "kitchen?": "galley?",
+    "pub": "fleabag inn",
+    "pub?": "fleabag inn?",
+    "pub.": "fleabag inn.",
+    "pub!": "fleabag inn!",
+    "pub,": "fleabag inn,",
+    "stop": "avast",
+    "stop,": "avast,",
+    "stop.": "avast.",
+    "stop?": "avast?",
+    "stop!": "avast!",
+    "yes": "aye",
+    "yes?": "aye?",
+    "yes,": "aye,",
+    "yes.": "aye.",
+    "yes!": "aye!",
+    "no": "nay",
+    "no,": "nay,",
+    "no?": "nay?",
+    "no.": "nay.",
+    "no!": "nay!",
+    "yay": "yo-ho-ho",
+    "yay?": "yo-ho-ho?",
+    "yay,": "yo-ho-ho,",
+    "yay.": "yo-ho-ho.",
+    "yay!": "yo-ho-ho!",
+    "money": "doubloons",
+    "money,": "doubloons,",
+    "money.": "doubloons.",
+    "money!": "doubloons!",
+    "money?": "doubloons?",
+    "treasure": "booty",
+    "treasure!": "booty!",
+    "treasure.": "booty.",
+    "treasure?": "booty?",
+    "treasure,": "booty,",
+    "take": "pillage",
+    "take!": "pillage!",
+    "take.": "pillage.",
+    "take?": "pillage?",
+    "take,": "pillage,",
+    "drink": "grog",
+    "drink.": "grog.",
+    "drink?": "grog?",
+    "drink,": "grog,",
+    "drink!": "grog!",
+    "idiot": "scallywag",
+    "idiot!": "scallywag!",
+    "idiot?": "scallywag?",
+    "idiot.": "scallywag.",
+    "idiot,": "scallywag,",
+    "sea": "briney deep",
+    "sea!": "briney deep!",
+    "sea,": "briney deep,",
+    "sea.": "briney deep.",
+    "sea?": "briney deep?",
+    "song": "shanty",
+    "song!": "shanty!",
+    "song?": "shanty?",
+    "song,": "shanty,",
+    "song.": "shanty.",
+    "drunk": "three sheets to the wind",
+    "drunk!": "three sheets to the wind?",
+    "drunk?": "three sheets to the wind!",
+    "drunk.": "three sheets to the wind.",
+    "drunk,": "three sheets to the wind,",
+    "talk": "parley",
+    "talk!": "parley!",
+    "talk?": "parley?",
+    "talk.": "parley.",
+    "talk,": "parley,",
+    "fail": "scupper",
+    "fail!": "scupper!",
+    "fail?": "scupper?",
+    "fail.": "scupper.",
+    "fail,": "scupper,",
+    "quickly": "smartly",
+    "quickly.": "smartly.",
+    "quickly,": "smartly,",
+    "quickly!": "smartly!",
+    "quickly?": "smartly?",
+}
+
+
+#: A list of Pirate phrases to randomly insert before or after sentences.
+_PIRATE_PHRASES = [
+    "batten down the hatches!",
+    "splice the mainbrace!",
+    "thar she blows!",
+    "arrr!",
+    "weigh anchor and hoist the mizzen!",
+    "savvy?",
+    "dead men tell no tales.",
+    "cleave him to the brisket!",
+    "blimey!",
+    "blow me down!",
+    "avast ye!",
+    "yo ho ho.",
+    "shiver me timbers!",
+    "blisterin' barnacles!",
+    "ye flounderin' nincompoop.",
+    "thundering typhoons!",
+]
+
+
+def get_version():
+    """
+    Returns a string representation of the version information of this project.
+    """
+    return ".".join([str(i) for i in _VERSION])
+
+
+def translate(english):
+    """
+    Take some English text and return a Pirate-ish version thereof.
+    """
+    # Normalise a list of words (remove whitespace and make lowercase)
+    words = [w.lower() for w in english.split()]
+    # Substitute some English words with Pirate equivalents.
+    result = [_PIRATE_WORDS.get(word, word) for word in words]
+    # Capitalize words that begin a sentence and potentially insert a pirate
+    # phrase with a chance of 1 in 5.
+    capitalize = True
+    for i, word in enumerate(result):
+        if capitalize:
+            result[i] = word.capitalize()
+            capitalize = False
+        if word.endswith((".", "!", "?", ":",)):
+            # It's a word that ends with a sentence ending character.
+            capitalize = True
+            if random.randint(0, 5) == 0:
+                result.insert(i + 1, random.choice(_PIRATE_PHRASES))
+    return " ".join(result)
+
+
+def main(arrrgv=None):
+    """
+    Entry point for the command line tool 'pirate'.
+    Will print help text if the optional first argument is "help". Otherwise,
+    takes the text passed into the command and prints a pirate version of it.
+    """
+    if not arrrgv:
+        arrrgv = sys.argv[1:]
+
+    arrrgparse.parser.add_argument("english", nargs="*", default="")
+    arrrgs = arrrgparse.parser.parse_args(arrrgv)
+    if arrrgs.english:
+        try:
+            plain_english = " ".join(arrrgs.english)
+            print(translate(plain_english))
+        except Exception:
+            print(
+                "Error processing English. The pirates replied:\n\n"
+                "Shiver me timbers. We're fish bait. "
+                "Summat went awry, me lovely! Arrr..."
+            )
+            sys.exit(1)
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('!hello'):
+        msg = 'Ahoy, {0.author.mention}!'.format(message)
+        await message.channel.send(msg)
+
+    if message.content.startswith('!pirate'):
+        msg = ('{0.author.mention} be saying: ' + translate(message.content)).format(message)
+        msg = msg.replace('!pirate', '')
+        await message.channel.send(msg)
+
+client.run(TOKEN)
