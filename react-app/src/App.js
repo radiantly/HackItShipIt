@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import ReactGlobe from 'react-globe';
 
-import defaultMarkers from './markers';
+import markers from './markers';
 import './App.css';
+
+import img1 from './assets/img1.jpeg';
 
 function getTooltipContent(marker) {
   return `CITY: ${marker.city} (Value: ${marker.value})`;
 }
 
 function App() {
-  const randomMarkers = defaultMarkers.map(marker => ({
-    ...marker,
-    value: Math.floor(Math.random() * 100),
-  }));
-  const [markers, setMarkers] = useState([]);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
   function onClickMarker(marker, markerObject, event) {
@@ -35,7 +32,7 @@ function App() {
   }
 
   return (
-    <div style={{ width: '100vw', height: '90vh' }}>
+    <div style={{ width: '100vw', height: '100vh' }}>
       <ReactGlobe
         markers={markers}
         markerOptions={{
@@ -45,38 +42,103 @@ function App() {
         onDefocus={onDefocus}
       />
       {details && (
+        <>
         <div
           style={{
-            background: 'white',
+            background: 'rgba(0,0,0,0.6)',
+            fontFamily: 'Chelsea Market',
             position: 'absolute',
             fontSize: 20,
-            top: 0,
-            right: 0,
+            top: 20,
+            right: 20,
+            width: 300,
             padding: 12,
+            color: 'white',
+            borderRadius: 20
           }}>
-          <p>{details}</p>
-          <p>
-            EVENT: type={event.type}, position=
-            {JSON.stringify(event.pointerEventPosition)})
-          </p>
+          <button style={{
+            background: 'rgba(20,20,20,0.6)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            top: 20,
+            right: 20,
+            width: '100%',
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 0
+          }}>BERMUDA TRASHANGLE</button> 
+          <br />
+          <p style={{textAlign: 'center'}}>Bermuda Trashangle was known for swallowing everything that it encountered, until it encoutered its mightiest enemy : PLASTIC!</p>
+          <p style={{textAlign: 'center'}}>Prove your worth to help Bermuda trashangle become the beautiful and mysterious 'Triangle' it once was!</p>
+          <button style={{
+            background: 'rgba(20,255,20,0.6)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            width: '100%',
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+          }}>GAME ON!</button> 
+          <button style={{
+            background: 'rgba(47,96,235,0.9)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            width: '100%',
+            padding: 12,
+            marginTop: 10,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+          }}>GO BACK</button> 
+          {
+          // <p>{details}</p>
+          // <p>
+          //   EVENT: type={event.type}, position=
+          //   {JSON.stringify(event.pointerEventPosition)})
+          // </p>
+        }
         </div>
+
+        <div
+          style={{
+            background: 'rgba(0,0,0,0.6)',
+            fontFamily: 'Chelsea Market',
+            position: 'absolute',
+            fontSize: 20,
+            top: 20,
+            left: 20,
+            width: 450,
+            padding: 12,
+            color: 'white',
+            borderRadius: 20
+          }}>
+          <button style={{
+            background: 'rgba(20,20,20,0.6)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            top: 20,
+            right: 20,
+            width: '100%',
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 0
+          }}>Some facts you ought to know!</button> 
+          <br />
+          <p style={{textAlign: 'center'}}>Plastic pollution is the most widespread problem affecting the marine environment. It also threatens ocean health, food safety and quality, human health, coastal tourism, and contributes to climate change. </p>
+          <img src={img1} style={{margin: 22.5, width: '90%', height: 'auto', borderRadius: 10}}></img>
+          {
+          // <p>{details}</p>
+          // <p>
+          //   EVENT: type={event.type}, position=
+          //   {JSON.stringify(event.pointerEventPosition)})
+          // </p>
+        }
+        </div>
+        </>
       )}
-      <button onClick={() => setMarkers(randomMarkers)}>
-        Randomize markers
-      </button>
-      <button disabled={markers.length === 0} onClick={() => setMarkers([])}>
-        Clear markers
-      </button>
-      <button
-        disabled={markers.length === randomMarkers.length}
-        onClick={() => setMarkers([...markers, randomMarkers[markers.length]])}>
-        Add marker
-      </button>
-      <button
-        disabled={markers.length === 0}
-        onClick={() => setMarkers(markers.slice(0, markers.length - 1))}>
-        Remove marker
-      </button>
     </div>
   );
 }
