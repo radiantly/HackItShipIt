@@ -4,6 +4,7 @@ import ReactGlobe from 'react-globe';
 import markers from './markers';
 import './App.css';
 
+
 import img1 from './assets/img1.jpeg';
 import plastic_patch from './assets/plastic_patch.jpg';
 import microplastics from './assets/microplastics.jpg';
@@ -18,15 +19,19 @@ import nat_geo from './assets/nat_geo.svg';
 import plogging from './assets/plogging.jpg';
 import ocean_cleanup from './assets/ocean_cleanup.png';
 
-function getTooltipContent(marker) {
-
-  return `CITY: ${marker.city} (Value: ${marker.value})`;
-}
-
 function App() {
+
+  
+  
+  function getTooltipContent(marker) {
+  
+    return `CITY: ${marker.city} (Value: ${marker.value})`;
+  }
+
   const [page, setPage] = useState(1);
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(null);
+
   function onClickMarker(marker, markerObject, event) {
     setEvent({
       type: 'CLICK',
@@ -36,6 +41,7 @@ function App() {
     });
     setDetails(getTooltipContent(marker));
   }
+
   function onDefocus(previousCoordinates, event) {
     setEvent({
       type: 'DEFOCUS',
@@ -56,7 +62,15 @@ function App() {
         onClickMarker={onClickMarker}
         onDefocus={onDefocus}
         style={{position: 'static'}}
+        globeOptions={{
+          glowCoefficient: 0.1,
+          glowColor: 'turquoise',
+          glowPower: 6,
+          glowRadiusScale: 0.5,
+          enableGlow: true,
+        }}
       />
+
       {details && (
         <div
           style={{
@@ -118,6 +132,7 @@ function App() {
 
         
       )}
+
       <button style={{height: 30, width: 30, borderRadius: 30, background: 'tomato', margin: 20, border: 'none', fontFamily: 'Chelsea Market', position: 'absolute', fontSize: 20, top: 0, left: 20, color: 'white',}} onClick={() => setPage(1)}>1</button>
       <button style={{height: 30, width: 30, borderRadius: 30, background: 'orange', margin: 20, border: 'none', fontFamily: 'Chelsea Market', position: 'absolute', fontSize: 20, top: 0, left: 70, color: 'white'}} onClick={() => setPage(2)}>2</button>
       <button style={{height: 30, width: 30, borderRadius: 30, background: 'mediumseagreen', margin: 20, border: 'none', fontFamily: 'Chelsea Market', position: 'absolute', fontSize: 20, top: 0, left: 120, color: 'white'}} onClick={() => setPage(3)}>3</button>
