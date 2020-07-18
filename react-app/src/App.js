@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import ReactGlobe from 'react-globe';
 
 import defaultMarkers from './markers';
