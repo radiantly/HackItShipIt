@@ -6,7 +6,7 @@ import Quiz from './quiz/Quiz1'
 import markers from './markers';
 import './App.css';
 
-
+import arr from './assets/arr.svg'
 import pirate1 from './assets/pirate1.gif'
 import pirate2 from './assets/pirate2.gif'
 import pirate3 from './assets/pirate3.gif'
@@ -152,6 +152,24 @@ function App() {
           enableGlow: true,
         }}
       />
+
+      {details===0 && (
+        <div
+          style={{
+            background: 'none',
+            fontFamily: 'Chelsea Market',
+            position: 'absolute',
+            fontSize: 20,
+            top: 20,
+            right: 20,
+            width: 300,
+            padding: 12,
+            color: 'white',
+            borderRadius: 20
+          }}>
+          <img alt="_" src={arr} style={{ width: 300, height: 'auto', borderRadius: 10}}></img></div>
+   
+      )}
 
       {details===1 && (
         <div
