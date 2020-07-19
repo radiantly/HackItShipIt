@@ -8,6 +8,15 @@ const App = ({setVisible1}) => {
   const [loading, setLoading ] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [number, setNumber] = useState(0);
+  const [scoreStyle, setStyle] = useState({
+    background: 'rgba(0,0,0,0.9)',
+    fontFamily: 'Chelsea Market',
+    fontSize: 30,
+    padding: 12,
+    color: 'white',
+    borderRadius: 14,
+    border: 'none'
+    });
   const [userAnswers, setUserAnswers] = useState([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
@@ -15,6 +24,7 @@ const App = ({setVisible1}) => {
   const TOTAL_QUESTIONS = 10;
 
   // console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY))
+
 
   const startTrivia = async () => {
       setLoading(true);
@@ -35,6 +45,27 @@ const App = ({setVisible1}) => {
         const answer = e.currentTarget.value;
         const correct = questions[number].correct_answer === answer;
         if(correct) setScore(prev => prev + 1);
+        if(correct){
+            setStyle({
+            background: 'rgba(0,140,0,0.9)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 30,
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+          })
+        }else{
+            setStyle({
+            background: 'rgba(140,0,0,0.9)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 30,
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+            })
+        }
         // Save answer in the userAnswers array
         const answerObject = {
           question: questions[number].question,
@@ -51,11 +82,22 @@ const App = ({setVisible1}) => {
       const nextQuestion = number + 1;
 
       if(nextQuestion === TOTAL_QUESTIONS) {
+        setStyle({
+            background: 'rgba(0,0,0,0.9)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 30,
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+          })
         setGameOver(true);
+
       } else{
         setNumber(nextQuestion);
       }
   }
+
 
   return (
 
@@ -96,10 +138,7 @@ const App = ({setVisible1}) => {
         </button>
         ) 
         : null}
-      {!gameOver ? (<p style={{
-        fontSize: 20,
-        fontFamily: 'Chelsea Market',
-      }}
+      {!gameOver ? (<p style={scoreStyle}
       className="score">
       Score: {score} </p>) : null}
       {loading ? <p style={{
