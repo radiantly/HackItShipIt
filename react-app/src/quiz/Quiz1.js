@@ -60,16 +60,36 @@ const App = () => {
   return (
 
     <div className="App">
-      <h1>Science & Nature Quiz</h1>
+     {gameOver && (<h1 style={{fontSize: 20,
+        fontFamily: 'Chelsea Market',}}>Ahoy, matey! You Ready?</h1>)} 
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? 
       (
-      <button className="start" onClick={startTrivia}>
+      <button className="start" onClick={startTrivia}
+      style={{
+        background: 'rgba(0,140,0,0.9)',
+        fontFamily: 'Chelsea Market',
+        fontSize: 20,
+        width: '100%',
+        padding: 12,
+        color: 'white',
+        borderRadius: 14,
+        border: 'none'
+      }}>
         Start
       </button>
       ) 
       : null}
-      {!gameOver ? (<p className="score">Score: {score} </p>) : null}
-      {loading ? <p> Loading Questions ... </p> : null}
+      {!gameOver ? (<p style={{
+        fontSize: 20,
+        fontFamily: 'Chelsea Market',
+      }}
+      className="score">
+      Score: {score} </p>) : null}
+      {loading ? <p style={{
+        fontSize: 20,
+        fontFamily: 'Chelsea Market',
+      }}
+      > Loading Questions ... </p> : null}
       {!loading && !gameOver && (
         <QuestionCard 
         questionNr={number + 1}
@@ -81,7 +101,18 @@ const App = () => {
       />
       )}
       {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
-          <button className="next" onClick={nextQuestion}>Next Question</button>
+          <button style={{
+            background: 'rgba(80,80,80,0.9)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            width: '100%',
+            padding: 12,
+            marginTop: 10,
+            color: 'white',
+            borderRadius: 14,
+            border: 'none'
+          }}
+          className="next"  onClick={nextQuestion}>Next Question</button>
       )
       : null
       }
