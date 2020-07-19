@@ -5,7 +5,7 @@ import argparse as arrrgparse  # Geddit..? ;-)
 import random
 import sys
 from pirate import _PIRATE_WORDS, _PIRATE_PHRASES, _WALK_THE_PLANK
-from random_word import RandomWords
+from random_words import RandomWords
 from string import ascii_uppercase
 
 TOKEN = 'NzMyNTAxMTUwMzM0NDUxNzQz.Xw1hNA.zndN_rO8n2n39FCZng60FEjENMs'
@@ -123,7 +123,7 @@ async def on_message(message):
             await message.channel.send("A walk the plank game is currently in progress.")
         else:
             resetGame()
-            hangmanWord = r.get_random_word().upper()
+            hangmanWord = r.random_word().upper()
             hangmanGameRunning = True
             await message.channel.send(getWord())
 
