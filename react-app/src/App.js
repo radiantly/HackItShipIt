@@ -161,7 +161,7 @@ function App() {
             position: 'absolute',
             fontSize: 20,
             top: 20,
-            right: 20,
+            right: 40,
             width: 300,
           }}>
           <img alt="_" src={arr} style={{ width: 300, height: 'auto'}}></img></div>
