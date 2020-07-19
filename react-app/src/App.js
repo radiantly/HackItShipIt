@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import ReactGlobe from 'react-globe';
+import Modal from 'react-modal';
 
+import Quiz from './quiz/Quiz1'
 import markers from './markers';
 import './App.css';
+
 
 
 import img1 from './assets/img1.jpeg';
@@ -32,6 +35,7 @@ function App() {
   // eslint-disable-next-line
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(0);
+  const [visible1, setVisible1] = useState(false);
 
   function onClickMarker(marker, markerObject, event) {
     setEvent({
@@ -52,8 +56,29 @@ function App() {
     setDetails(0);
   }
 
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
+
   return (
-    <>
+    <div>
+    <div>
+    <Modal
+    isOpen={visible1}
+    onRequestClose={()=>setVisible1(false)}
+    style={customStyles}
+    contentLabel="Example Modal"
+  >
+        <Quiz />
+      </Modal>
+    </div>
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactGlobe
         markers={markers}
@@ -110,7 +135,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>YES LETS DO IT!</button> 
+          }}
+          onClick={()=>setVisible1(true)}>YES LETS DO IT!</button> 
           <button style={{
             background: 'rgba(47,96,235,0.9)',
             fontFamily: 'Chelsea Market',
@@ -543,7 +569,7 @@ function App() {
           // </p>
         }
     </div>
-    </>
+    </div>
   );
 }
 
