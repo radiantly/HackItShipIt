@@ -163,11 +163,8 @@ function App() {
             top: 20,
             right: 20,
             width: 300,
-            padding: 12,
-            color: 'white',
-            borderRadius: 20
           }}>
-          <img alt="_" src={arr} style={{ width: 300, height: 'auto', borderRadius: 10}}></img></div>
+          <img alt="_" src={arr} style={{ width: 300, height: 'auto'}}></img></div>
    
       )}
 
