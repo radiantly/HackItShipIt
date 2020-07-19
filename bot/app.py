@@ -116,6 +116,10 @@ async def on_message(message):
     if message.content.startswith('!hello'):
         msg = 'Ahoy, {0.author.mention}!'.format(message)
         await message.channel.send(msg)
+    
+    if message.content.startswith('!game'):
+        msg = 'The treasure ye seek can be found at https://captainscallywag.netlify.app/'
+        await message.channel.send(msg)
 
     if message.content.startswith('!pirate'):
         msg = ('{0.author.mention} be saying: ' + translate(message.content)).format(message)
