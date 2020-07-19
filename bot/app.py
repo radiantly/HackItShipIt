@@ -4,7 +4,7 @@ from arrr import _VERSION
 import argparse as arrrgparse  # Geddit..? ;-)
 import random
 import sys
-from pirate import _PIRATE_WORDS, _PIRATE_PHRASES
+from pirate import _PIRATE_WORDS, _PIRATE_PHRASES, _WALK_THE_PLANK
 from random_word import RandomWords
 from string import ascii_uppercase
 
@@ -94,9 +94,9 @@ def guess(letter):
         return "Correct! Word is now: " + getWord()
     if wrongGuesses > 3:
         resetGame()
-        return f"Uh oh, you lose! The word was {hangmanWord}"
+        return f"{_WALK_THE_PLANK[4]}\nUh oh, you lose! The word was {hangmanWord}"
     wrongGuesses += 1
-    return "Nope. Word is " + getWord()
+    return f"{_WALK_THE_PLANK[wrongGuesses - 1]}\nNope. Word is {getWord()}"
 
 @client.event
 async def on_message(message):
@@ -123,8 +123,8 @@ async def on_message(message):
             await message.channel.send("A walk the plank game is currently in progress.")
         else:
             resetGame()
-            hangmanGameRunning = True
             hangmanWord = r.get_random_word().upper()
+            hangmanGameRunning = True
             await message.channel.send(getWord())
 
 
