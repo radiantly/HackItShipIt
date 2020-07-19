@@ -7,7 +7,13 @@ import markers from './markers';
 import './App.css';
 
 
-
+import pirate1 from './assets/pirate1.gif'
+import pirate2 from './assets/pirate2.gif'
+import pirate3 from './assets/pirate3.gif'
+import pirate4 from './assets/pirate4.gif'
+import pirate5 from './assets/pirate5.gif'
+import pirate6 from './assets/pirate6.gif'
+import pirate7 from './assets/pirate7.gif'
 import img1 from './assets/img1.jpeg';
 import plastic_patch from './assets/plastic_patch.jpg';
 import microplastics from './assets/microplastics.jpg';
@@ -24,14 +30,14 @@ import ocean_cleanup from './assets/ocean_cleanup.png';
 
 function App() {
 
-  
-
   function getTooltipContent(marker) {
   
     return `CITY: ${marker.city} (Value: ${marker.value})`;
   }
 
   const [page, setPage] = useState(1);
+  const [megaScore, setMegaScore] = useState(0);
+  const [megaQs, setMegaQs] = useState(0);
   // eslint-disable-next-line
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(0);
@@ -82,6 +88,8 @@ function App() {
     }
   };
 
+  let scoreboard = (megaScore/megaQs * 100) ? (megaScore/megaQs * 100).toPrecision(3) : 0
+
   return (
     <div>
     <div>
@@ -91,7 +99,7 @@ function App() {
     onRequestClose={()=>setVisible1(false)}
     style={customStyles}
     >
-        <Quiz setVisible1={setVisible1}/>
+        <Quiz type="a" setVisible1={setVisible1} megaScore={megaScore} setMegaScore={setMegaScore} megaQs={megaQs} setMegaQs={setMegaQs}/>
     </Modal>
 
     <Modal
@@ -99,7 +107,7 @@ function App() {
     onRequestClose={()=>setVisible2(false)}
     style={customStyles}
     >
-        <Quiz setVisible1={setVisible2}/>
+        <Quiz type="b" setVisible1={setVisible2} megaScore={megaScore} setMegaScore={setMegaScore} megaQs={megaQs} setMegaQs={setMegaQs}/>
     </Modal>
 
     <Modal
@@ -107,7 +115,7 @@ function App() {
     onRequestClose={()=>setVisible3(false)}
     style={customStyles}
     >
-        <Quiz setVisible1={setVisible3}/>
+        <Quiz type="c" setVisible1={setVisible3} megaScore={megaScore} setMegaScore={setMegaScore} megaQs={megaQs} setMegaQs={setMegaQs}/>
     </Modal>
 
     <Modal
@@ -115,7 +123,7 @@ function App() {
     onRequestClose={()=>setVisible4(false)}
     style={customStyles}
     >
-        <Quiz setVisible1={setVisible4}/>
+        <Quiz type="d" setVisible1={setVisible4} megaScore={megaScore} setMegaScore={setMegaScore} megaQs={megaQs} setMegaQs={setMegaQs}/>
     </Modal>
 
     <Modal
@@ -123,7 +131,7 @@ function App() {
     onRequestClose={()=>setVisible5(false)}
     style={customStyles}
     >
-        <Quiz setVisible1={setVisible5}/>
+        <Quiz type="e" setVisible1={setVisible5} megaScore={megaScore} setMegaScore={setMegaScore} megaQs={megaQs} setMegaQs={setMegaQs}/>
     </Modal>
 
     </div>
@@ -465,6 +473,49 @@ function App() {
 
         
       )}
+
+        <div
+          style={{
+            background: 'rgba(0,0,0,0.6)',
+            fontFamily: 'Chelsea Market',
+            position: 'absolute',
+            fontSize: 20,
+            bottom: 20,
+            right: 20,
+            width: 300,
+            padding: 12,
+            color: 'white',
+            borderRadius: 20
+          }}>
+          <button style={{
+            background: 'rgba(20,20,20,0.6)',
+            fontFamily: 'Chelsea Market',
+            fontSize: 20,
+            top: 20,
+            right: 20,
+            width: '100%',
+            padding: 12,
+            color: 'white',
+            borderRadius: 14,
+            border: 0
+          }}>SCOREBOARD</button> 
+          <br />
+          <p style={{textAlign: 'center'}}>Ahoy!<br /> Your score be : {scoreboard} % </p>
+        
+         { scoreboard >=0 && scoreboard < 15 && (<img alt="_" src={pirate1} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=15 && scoreboard < 30 && (<img alt="_" src={pirate2} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=30 && scoreboard < 45  && (<img alt="_" src={pirate3} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=45 && scoreboard < 60 && (<img alt="_" src={pirate4} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=60 && scoreboard < 75 && (<img alt="_" src={pirate5} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=75 && scoreboard < 90 && (<img alt="_" src={pirate6} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+         { scoreboard >=90 && scoreboard <= 100 && (<img alt="_" src={pirate7} style={{marginLeft: 40, width: 'auto', height: 200, borderRadius: 10}}></img>)}
+
+
+        
+        </div>
+
+      
+
 
       <button style={{height: 30, width: 30, borderRadius: 30, background: 'tomato', margin: 20, border: 'none', fontFamily: 'Chelsea Market', position: 'absolute', fontSize: 20, top: 0, left: 20, color: 'white',}} onClick={() => setPage(1)}>1</button>
       <button style={{height: 30, width: 30, borderRadius: 30, background: 'orange', margin: 20, border: 'none', fontFamily: 'Chelsea Market', position: 'absolute', fontSize: 20, top: 0, left: 70, color: 'white'}} onClick={() => setPage(2)}>2</button>

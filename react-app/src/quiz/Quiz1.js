@@ -4,7 +4,7 @@ import QuestionCard from './components/QuestionCard';
 
 
 
-const App = ({setVisible1}) => {
+const App = ({setVisible1, type, megaScore, setMegaScore, megaQs, setMegaQs}) => {
   const [loading, setLoading ] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [number, setNumber] = useState(0);
@@ -30,7 +30,7 @@ const App = ({setVisible1}) => {
       setLoading(true);
       setGameOver(false);
 
-      const newQuestions = await fetchQuizQuestions(TOTAL_QUESTIONS);
+      const newQuestions = await fetchQuizQuestions(type);
 
       setQuestions(newQuestions);
       setScore(0);
@@ -42,9 +42,11 @@ const App = ({setVisible1}) => {
 
   const checkAnswer = (e) => {
       if(!gameOver){
+        setMegaQs(prev => prev + 1);
         const answer = e.currentTarget.value;
-        const correct = questions[number].correct_answer === answer;
+        const correct = questions[number].answer === answer;
         if(correct) setScore(prev => prev + 1);
+        if(correct) setMegaScore(prev => prev + 1);
         if(correct){
             setStyle({
             background: 'rgba(0,140,0,0.9)',
