@@ -1,6 +1,7 @@
+import json
 import discord
 import asyncio
-from arrr import _VERSION
+from pathlib import Path
 import argparse as arrrgparse  # Geddit..? ;-)
 import random
 import sys
@@ -8,7 +9,10 @@ from pirate import _PIRATE_WORDS, _PIRATE_PHRASES, _WALK_THE_PLANK
 from random_words import RandomWords
 from string import ascii_uppercase
 
-TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXX'
+path = Path(__file__).parent / "./config.json"
+with path.open() as f:
+    config = json.loads(f.read())
+
 client = discord.Client()
 r = RandomWords()
 
@@ -16,7 +20,7 @@ def get_version():
     """
     Returns a string representation of the version information of this project.
     """
-    return ".".join([str(i) for i in _VERSION])
+    return ".".join([str(i) for i in config["version"]])
 
 
 def translate(english):
@@ -85,18 +89,18 @@ def resetGame():
 def guess(letter):
     global wrongGuesses
     if letter in hangmanGuesses:
-        return "You've already guessed this letter!"
+        return "Ye already be guessing this letter!"
     hangmanGuesses.append(letter)
     if letter in hangmanWord:
         if set(hangmanWord) <= set(hangmanGuesses):
             resetGame()
-            return f"You win! The word was {hangmanWord}"
-        return "Correct! Word is now: " + getWord()
+            return f"Ye won the booty! Congratulations! {hangmanWord} it be!"
+        return "Shiver me timbers! That be correct! The word be: " + getWord()
     if wrongGuesses > 3:
         resetGame()
-        return f"{_WALK_THE_PLANK[4]}\nUh oh, you lose! The word was {hangmanWord}"
+        return f"{_WALK_THE_PLANK[4]}\nDown to sharks you scurvy-rat! The word be {hangmanWord}"
     wrongGuesses += 1
-    return f"{_WALK_THE_PLANK[wrongGuesses - 1]}\nNope. Word is {getWord()}"
+    return f"{_WALK_THE_PLANK[wrongGuesses - 1]}\nNay, the word be: {getWord()}"
 
 @client.event
 async def on_message(message):
@@ -128,4 +132,4 @@ async def on_message(message):
             await message.channel.send(getWord())
 
 
-client.run(TOKEN)
+client.run(config["token"])
