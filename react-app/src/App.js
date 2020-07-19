@@ -36,6 +36,10 @@ function App() {
   const [event, setEvent] = useState(null);
   const [details, setDetails] = useState(0);
   const [visible1, setVisible1] = useState(false);
+  const [visible2, setVisible2] = useState(false);
+  const [visible3, setVisible3] = useState(false);
+  const [visible4, setVisible4] = useState(false);
+  const [visible5, setVisible5] = useState(false);
 
   function onClickMarker(marker, markerObject, event) {
     setEvent({
@@ -56,6 +60,15 @@ function App() {
     setDetails(0);
   }
 
+  function onDeFocus() {
+    setEvent({
+      type: 'DEFOCUS',
+      previousCoordinates: [-16.6084543,143.6005968],
+      pointerEventPosition: { x: -16.6084543, y: 143.6005968},
+    });
+    setDetails(0);
+  }
+
   const customStyles = {
     content : {
       top                   : '50%',
@@ -72,14 +85,47 @@ function App() {
   return (
     <div>
     <div>
+
     <Modal
     isOpen={visible1}
     onRequestClose={()=>setVisible1(false)}
     style={customStyles}
-    contentLabel="Example Modal"
-  >
-        <Quiz />
-      </Modal>
+    >
+        <Quiz setVisible1={setVisible1}/>
+    </Modal>
+
+    <Modal
+    isOpen={visible2}
+    onRequestClose={()=>setVisible2(false)}
+    style={customStyles}
+    >
+        <Quiz setVisible1={setVisible2}/>
+    </Modal>
+
+    <Modal
+    isOpen={visible3}
+    onRequestClose={()=>setVisible3(false)}
+    style={customStyles}
+    >
+        <Quiz setVisible1={setVisible3}/>
+    </Modal>
+
+    <Modal
+    isOpen={visible4}
+    onRequestClose={()=>setVisible4(false)}
+    style={customStyles}
+    >
+        <Quiz setVisible1={setVisible4}/>
+    </Modal>
+
+    <Modal
+    isOpen={visible5}
+    onRequestClose={()=>setVisible5(false)}
+    style={customStyles}
+    >
+        <Quiz setVisible1={setVisible5}/>
+    </Modal>
+
     </div>
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactGlobe
@@ -149,7 +195,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>NO, RETREAT</button> 
+          }}
+          onClick={()=>onDeFocus()}>NO, RETREAT</button> 
           {
           // <p>{details}</p>
           // <p>
@@ -200,7 +247,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>YES!</button> 
+          }}
+          onClick={()=>setVisible1(true)}>YES!</button> 
           <button style={{
             background: 'rgba(47,96,235,0.9)',
             fontFamily: 'Chelsea Market',
@@ -211,7 +259,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>NO!</button> 
+          }}
+          onClick={()=>onDeFocus()}>NO!</button> 
           {
           // <p>{details}</p>
           // <p>
@@ -262,7 +311,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>GAME ON!</button> 
+          }}
+          onClick={()=>setVisible1(true)}>GAME ON!</button> 
           <button style={{
             background: 'rgba(47,96,235,0.9)',
             fontFamily: 'Chelsea Market',
@@ -273,7 +323,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>GO BACK</button> 
+          }}
+          onClick={()=>onDeFocus()}>GO BACK</button> 
           {
           // <p>{details}</p>
           // <p>
@@ -324,7 +375,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>OF COURSE!</button> 
+          }}
+          onClick={()=>setVisible1(true)}>OF COURSE!</button> 
           <button style={{
             background: 'rgba(47,96,235,0.9)',
             fontFamily: 'Chelsea Market',
@@ -335,7 +387,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>CANCEL</button> 
+          }}
+          onClick={()=>onDeFocus()}>CANCEL</button> 
           {
           // <p>{details}</p>
           // <p>
@@ -387,7 +440,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>YES! LETS GO!</button> 
+          }}
+          onClick={()=>setVisible1(true)}>YES! LETS GO!</button> 
           <button style={{
             background: 'rgba(47,96,235,0.9)',
             fontFamily: 'Chelsea Market',
@@ -398,7 +452,8 @@ function App() {
             color: 'white',
             borderRadius: 14,
             border: 'none'
-          }}>NOPE</button> 
+          }}
+          onClick={()=>onDeFocus()}>NOPE</button> 
           {
           // <p>{details}</p>
           // <p>

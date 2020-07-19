@@ -4,7 +4,7 @@ import QuestionCard from './components/QuestionCard';
 
 
 
-const App = () => {
+const App = ({setVisible1}) => {
   const [loading, setLoading ] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [number, setNumber] = useState(0);
@@ -79,6 +79,23 @@ const App = () => {
       </button>
       ) 
       : null}
+      {gameOver || userAnswers.length === TOTAL_QUESTIONS ? 
+        (
+        <button className="close" onClick={()=>setVisible1(false)}
+        style={{
+          background: 'rgba(140,0,0,0.9)',
+          fontFamily: 'Chelsea Market',
+          fontSize: 20,
+          width: '100%',
+          padding: 12,
+          color: 'white',
+          borderRadius: 14,
+          border: 'none'
+        }}>
+          Close
+        </button>
+        ) 
+        : null}
       {!gameOver ? (<p style={{
         fontSize: 20,
         fontFamily: 'Chelsea Market',
