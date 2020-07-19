@@ -8,7 +8,7 @@ from pirate import _PIRATE_WORDS, _PIRATE_PHRASES, _WALK_THE_PLANK
 from random_words import RandomWords
 from string import ascii_uppercase
 
-TOKEN = 'NzMyNTAxMTUwMzM0NDUxNzQz.Xw1hNA.zndN_rO8n2n39FCZng60FEjENMs'
+TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXX'
 client = discord.Client()
 r = RandomWords()
 
