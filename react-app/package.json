@@ -12,7 +12,7 @@
     "react-modal": "^3.11.2",
     "react-scripts": "3.4.1",
     "rodal": "^1.8.1",
-    "three": "^0.118.3"
+    "three": "^0.125.0"
   },
   "scripts": {
     "start": "react-scripts start",
